@@ -34,13 +34,13 @@ canvas{cursor:pointer}
 button.big{font-size:20px;padding:12px 28px;min-width:240px}
 p{margin:6px 2px;font-size:14px;opacity:.8}
 </style></head><body><main>
-<div id="title"><canvas id="bgc" width="800" height="450"></canvas><i id="tint"></i><div id="scr1"><h1>WW2 2D TD</h1><p>ป้องกันฐานจากกองทัพศัตรู</p><div id="ptsb" style="font-weight:600"></div><button id="nw" class="big">เล่น</button><button id="rs" class="big" style="display:none">เล่นต่อ</button><button id="shp">ร้านค้า</button><button id="hp">วิธีเล่น</button><button id="sd">เสียง: เปิด</button><div id="help" style="display:none">• แตะจุดกระสอบทรายเพื่อสร้างป้อม แล้วอัปเกรดตามระดับ<br>• ปืนกลและต่อสู้อากาศยานมีกระสุนจำกัดและร้อนได้ กดโหลดเองได้<br>• ต่อต้านรถถังเลือกกระสุนให้ตรงศัตรู (HE ทหาร, APCR รถถัง, APHE บอส)<br>• ป้อมทหารและฐานทหารเรียกทหารได้ จ่าย 100 เพื่อฮีลทหาร<br>• ศัตรูบางชนิดสตันป้อมได้ บอสมาทุก 5 รอบ<br>• ชนะด่านได้แต้ม นำไปแลกของพิเศษ (ดาวรุ้ง) ที่ร้านค้า · เลือกฮีโร่ก่อนเริ่มเกม ใช้ปุ่ม สั่งฮีโร่ แล้วแตะทาง (คีย์ G)<br>• คอม: Space เริ่มรอบ · F เร่ง · A โจมตีทางอากาศ · R โหลด · U อัปเกรด · H ฮีล · T ปืนครกเปิด/ปิด · Delete ขาย · Esc เมนู</div></div>
+<div id="title"><canvas id="bgc" width="800" height="450"></canvas><i id="tint"></i><div id="scr1"><div id="lang" style="display:flex;gap:6px;justify-content:center"><button data-l="en">English</button><button data-l="th">ไทย</button><button data-l="zh">中文</button></div><h1>WW2 2D TD</h1><p>ป้องกันฐานจากกองทัพศัตรู</p><div id="ptsb" style="font-weight:600"></div><button id="nw" class="big">เล่น</button><button id="rs" class="big" style="display:none">เล่นต่อ</button><button id="shp">ร้านค้า</button><button id="hp">วิธีเล่น</button><button id="vd">เสียง −</button><button id="sd">เสียง: เปิด</button><button id="vu">เสียง +</button><div id="help" style="display:none">• แตะจุดกระสอบทรายเพื่อสร้างป้อม แล้วอัปเกรดตามระดับ<br>• ปืนกลและต่อสู้อากาศยานมีกระสุนจำกัดและร้อนได้ กดโหลดเองได้<br>• ต่อต้านรถถังเลือกกระสุนให้ตรงศัตรู (HE ทหาร, APCR รถถัง, APHE บอส)<br>• ป้อมทหารและฐานทหารเรียกทหารได้ จ่าย 100 เพื่อฮีลทหาร<br>• ศัตรูบางชนิดสตันป้อมได้ บอสมาทุก 5 รอบ<br>• ชนะด่านได้แต้ม นำไปแลกของพิเศษ (ดาวรุ้ง) ที่ร้านค้า · เลือกฮีโร่ก่อนเริ่มเกม ใช้ปุ่ม สั่งฮีโร่ แล้วแตะทาง (คีย์ G)<br>• คอม: Space เริ่มรอบ · F เร่ง · A โจมตีทางอากาศ · R โหลด · U อัปเกรด · H ฮีล · T ปืนครกเปิด/ปิด · Delete ขาย · Esc เมนู</div></div>
 <div id="scr2" style="display:none"><div id="opt"></div></div>
 <div id="scr3" style="display:none"><div id="shop"></div></div></div>
 <div id="hud"><span id="li"></span><span id="mo"></span><span id="wv"></span></div>
 <canvas id="c" width="800" height="450"></canvas>
 <div id="menu"></div>
-<div id="bar"><button id="go">เริ่มรอบ 1</button><button id="sp">เร่ง ×1</button><button id="as">โจมตีทางอากาศ</button><button id="hm" style="display:none">สั่งฮีโร่</button><button id="hr" style="display:none">เติมกระสุน 250</button><button id="mn">เมนู</button></div>
+<div id="bar"><button id="go">เริ่มรอบ 1</button><button id="sp">เร่ง ×1</button><button id="as">โจมตีทางอากาศ</button><button id="hm" style="display:none">สั่งฮีโร่</button><button id="hr" style="display:none">เติมกระสุน 250</button><button id="bvd">เสียง −</button><button id="bvu">เสียง +</button><button id="mn">เมนู</button></div>
 <p>แตะจุดกระสอบทรายเพื่อสร้างป้อม · ผังด่านสุ่มทุกครั้งที่เล่นใหม่ · บอสมาท้ายรอบ 5 และ 10 · รถถังศัตรูสตันป้อมได้ 1 วินาที</p>
 </main>
 <script>
@@ -119,6 +119,7 @@ const ITEMS=[
  {id:'aag',n:'ต่อสู้อากาศยานดาวรุ้ง',d:'ปรับป้อมต่อสู้อากาศยานให้ยิงภาคพื้นได้ สลับโหมดได้',c:6},
  {id:'btr',n:'ต่อสู้อากาศยานดาวรุ้ง 2 ดาว: BTR-ZD',d:'รถ BTR-ZD ยิงแรงและรัวสุด ร้อนเร็ว กระสุน 75 นัด (ต้องมีดาวรุ้งแรกก่อน)',c:15}];
 const AM=['APCR','APHE','HE','HEAT'];
+const TRD={"แลกแล้วจะปลดล็อกถาวร ใช้อัปเกรดดาวรุ้งในเกมโดยจ่ายเงินในเกมเพิ่ม": ["Once redeemed, it is unlocked permanently. Using the rainbow upgrade in game costs extra in-game money.", "兑换后永久解锁。游戏内使用彩虹升级需额外支付游戏币。"], "ปืนกลและต่อสู้อากาศยานมีกระสุนจำกัดและร้อนได้ กดโหลดเองได้": ["Machine guns and AA guns have limited ammo and can overheat. You can reload manually.", "机枪和防空炮弹药有限，且会过热，可手动装填。"], "อัปดาวรุ้ง ดาเมจแรง ยิงรัว ร้อนง่ายมาก กระสุนน้อย ระยะกลาง": ["rainbow upgrade: high damage, rapid fire, overheats very easily, little ammo, medium range", "彩虹升级：伤害高、射速快、极易过热、弹药少、射程中等"], "เลือกฮีโร่ก่อนเริ่มเกม ใช้ปุ่ม สั่งฮีโร่ แล้วแตะทาง": ["Choose a hero before the game starts. Use the Command Hero button, then tap the road", "开始游戏前选择英雄。使用“指挥英雄”按钮，然后点击道路"], "ปรับป้อมต่อสู้อากาศยานให้ยิงภาคพื้นได้ สลับโหมดได้": ["Lets AA towers fire at ground targets. The mode can be switched.", "让防空塔可以攻击地面目标，可切换模式。"], "แตะจุดกระสอบทรายเพื่อสร้างป้อม แล้วอัปเกรดตามระดับ": ["Tap a sandbag spot to build a tower, then upgrade it level by level", "点击沙袋位建造炮塔，然后逐级升级"], "ป้อมทหารและฐานทหารเรียกทหารได้ จ่าย": ["Barracks and Military Bases summon soldiers. Pay", "兵营和军事基地可召唤士兵。支付"], "ต่อต้านรถถังเลือกกระสุนให้ตรงศัตรู": ["Anti-tank guns: pick ammo that matches the enemy", "反坦克炮：选择与敌人对应的弹药"], "ติดลำกล้องคู่ ดาเมจมหาศาล ระยะไกล": ["twin barrels, huge damage, long range", "双管，伤害巨大，射程远"], "ศัตรูบางชนิดสตันป้อมได้ บอสมาทุก": ["Some enemies can stun towers. A boss comes every", "部分敌人可眩晕炮塔。Boss 每"], "ยิงแรงและรัวสุด ร้อนเร็ว กระสุน": ["strongest and fastest firing, overheats quickly, ammo", "火力最强、射速最快，过热很快，弹药"], "ชนะด่านได้แต้ม นำไปแลกของพิเศษ": ["Win stages to earn points, then exchange them for special items", "通关获得积分，可兑换特殊物品"], "ผังด่านสุ่มทุกครั้งที่เล่นใหม่": ["The stage layout is random every new game", "每次新游戏关卡布局都是随机的"], "แตะจุดกระสอบทรายเพื่อสร้างป้อม": ["Tap a sandbag spot to build a tower", "点击沙袋位建造炮塔"], "ต่อต้านรถถัง หรือหน่วยพ่นไฟ": ["anti-tank, or a flamethrower unit", "反坦克，或喷火部队"], "ป้องกันฐานจากกองทัพศัตรู": ["Defend the base from the enemy army", "保卫基地，抵御敌军"], "มีปืนรถไฟได้แค่ป้อมเดียว": ["Only one railway gun tower is allowed", "只能拥有一座列车炮塔"], "ป้อมทั้งหมดยิงเร็วขึ้น": ["all towers fire faster", "所有炮塔射速提升"], "ต่อสู้อากาศยานดาวรุ้ง": ["AA Rainbow Star", "防空 彩虹星"], "รถถังศัตรูสตันป้อมได้": ["Enemy tanks can stun towers for", "敌方坦克可眩晕炮塔"], "ต้องมีดาวรุ้งแรกก่อน": ["requires the first rainbow star", "需要先有第一颗彩虹星"], "เลือกจุดกระสอบทราย": ["Select a sandbag spot", "选择沙袋位"], "ป้องกันฐานได้ครบ": ["Defended the base through all", "成功守住基地，共"], "ป้อมทหารดาวรุ้ง": ["Barracks Rainbow Star", "兵营 彩虹星"], "หรือเลือกแผนที่": ["Or choose a map", "或选择地图"], "กล้องเล็งพิเศษ": ["Special Scope", "特殊瞄准镜"], "ต่อสู้อากาศยาน": ["Anti-Aircraft", "防空"], "เล่นไม่มีฮีโร่": ["Play without a hero", "不使用英雄"], "แตะทางเพื่อส่ง": ["Tap the road to send", "点击道路派遣"], "ยิงภาคพื้นได้": ["Can fire at ground", "可攻击地面"], "ฮีโร่เกิดใหม่": ["Hero respawning in", "英雄复活倒计时"], "เสริมเกราะจีป": ["Reinforce jeep armor", "强化吉普车装甲"], "แตะเพื่อเริ่ม": ["tap to start", "点击开始"], "แลกที่ร้านค้า": ["redeem at the shop", "在商店兑换"], "โจมตีทางอากาศ": ["Air Strike", "空袭"], "ต่อต้านรถถัง": ["Anti-Tank", "反坦克"], "บอสมาท้ายรอบ": ["A boss arrives at the end of wave", "Boss 出现在波次"], "เกราะทุกชนิด": ["all armor", "所有装甲"], "เพื่อฮีลทหาร": ["to heal soldiers", "来治疗士兵"], "ไม่เจาะเกราะ": ["no armor penetration", "无法穿甲"], "ป้อมได้ระยะ": ["towers gain range", "炮塔获得射程"], "แตะบนแผนที่": ["Tap the map", "点击地图"], "กำลังสู้รบ": ["Fighting", "战斗中"], "ซอมบี้นาซี": ["Nazi Zombies", "纳粹僵尸"], "ดาเมจเพิ่ม": ["extra damage", "额外伤害"], "ที่ร้านค้า": ["at the shop", "在商店"], "ปืนครกเปิด": ["mortar on", "迫击炮 开"], "ยิงภาคพื้น": ["Ground fire", "对地射击"], "ลำกล้องยาว": ["Long Barrel", "加长炮管"], "สุ่มแผนที่": ["Random map", "随机地图"], "หน่วยพ่นไฟ": ["Flamethrower unit", "喷火部队"], "เติมกระสุน": ["Refill ammo", "补充弹药"], "เลือกอาวุธ": ["Choose weapon", "选择武器"], "แต้มของคุณ": ["Your points", "你的积分"], "โหลดกระสุน": ["Reload", "装填"], "กล้องเล็ง": ["scope", "瞄准镜"], "ฐานถูกยึด": ["The base was overrun", "基地被攻陷"], "ติดปืนคู่": ["Mount twin guns", "安装双管炮"], "ทหารพ่นไฟ": ["Flamethrower Soldier", "喷火兵"], "สั่งฮีโร่": ["Command Hero", "指挥英雄"], "เรียกทหาร": ["Summon soldiers", "召唤士兵"], "ใช้กับสาย": ["for the", "适用于"], "ทะเลทราย": ["Desert", "沙漠"], "ป้อมทหาร": ["Barracks", "兵营"], "ยิงอากาศ": ["fires at air", "可攻击空中"], "ระเบิดวง": ["Area Blast", "范围爆炸"], "วิธีเล่น": ["How to Play", "玩法说明"], "เริ่มรอบ": ["Start wave", "开始波次"], "เริ่มเลย": ["start now", "立即开始"], "เลือกได้": ["can choose", "可选"], "เล่นใหม่": ["Play Again", "重新开始"], "แต้มสะสม": ["Total points", "累计积分"], "แรง โหลด": ["strong, reload", "威力大，装填"], "ไม่จำกัด": ["Endless", "无尽"], "ความยาก": ["Difficulty", "难度"], "ฐานทหาร": ["Military Base", "军事基地"], "ดาวรุ้ง": ["Rainbow Star", "彩虹星"], "ทั้งคู่": ["Both", "两者"], "ปานกลาง": ["Normal", "普通"], "ปืนรถไฟ": ["Railway Gun", "列车炮"], "ผ่านรอบ": ["passed wave", "通过波次"], "พลบรรจุ": ["loader crew", "装填手"], "ร้านค้า": ["Shop", "商店"], "อัปเกรด": ["Upgrade", "升级"], "ฮีลทหาร": ["Heal soldiers", "治疗士兵"], "เล่นต่อ": ["Continue", "继续"], "แลกแล้ว": ["Redeemed", "已兑换"], "โหมดยิง": ["Fire mode", "射击模式"], "ดาวแดง": ["Red Star", "红星"], "ปืนครก": ["Mortar", "迫击炮"], "วินาที": ["sec", "秒"], "แผนที่": ["Map", "地图"], "ไม่ใช้": ["None", "不使用"], "ชีวิต": ["Lives", "生命"], "ดาเมจ": ["Damage", "伤害"], "ปืนกล": ["Machine Gun", "机枪"], "พ่นไฟ": ["flamethrower", "喷火"], "รถถัง": ["tanks", "坦克"], "ระดับ": ["Level", "等级"], "อากาศ": ["Air", "空中"], "ฮีโร่": ["Hero", "英雄"], "เมือง": ["City", "城市"], "เสียง": ["Sound", "声音"], "กลับ": ["Back", "返回"], "คีย์": ["key", "按键"], "ง่าย": ["Easy", "简单"], "ทหาร": ["Soldier", "士兵"], "ป้อม": ["Tower", "炮塔"], "พื้น": ["Ground", "地面"], "ระยะ": ["Range", "射程"], "รุ้ง": ["Rainbow", "彩虹"], "สกิล": ["Skill", "技能"], "สตัน": ["Stun", "眩晕"], "หิมะ": ["Snow", "雪地"], "เงิน": ["Money", "金钱"], "เปิด": ["on", "开"], "เมนู": ["Menu", "菜单"], "เร่ง": ["Speed", "加速"], "เล่น": ["Play", "开始"], "แต้ม": ["points", "积分"], "โหมด": ["Mode", "模式"], "โหลด": ["reload", "装填"], "ขับ": ["Move speed", "移速"], "ขาย": ["Sell", "出售"], "ครก": ["Mortar", "迫击炮"], "คอม": ["PC", "电脑"], "คู่": ["Twin", "双管"], "จีป": ["Jeep", "吉普车"], "ชนะ": ["Victory", "胜利"], "ดาว": ["stars", "星"], "นัด": ["rounds", "发"], "บอส": ["boss", "Boss"], "ปิด": ["off", "关"], "ปืน": ["Gun", "火炮"], "ป่า": ["Forest", "森林"], "ฟรี": ["Free", "免费"], "ยาก": ["Hard", "困难"], "ยิง": ["Fire every", "射击间隔"], "รอบ": ["waves", "波"], "รัว": ["Rapid", "速射"], "ฮีล": ["Heal", "治疗"], "แบบ": ["type", "种"], "แพ้": ["Defeat", "失败"], "แลก": ["Redeem", "兑换"], "และ": ["and", "和"], "ได้": ["got", "获得"], "มม": ["mm", "毫米"], "มม.": ["mm", "毫米"], "รถ": ["Vehicle", "车辆"], "วิ": ["s", "秒"], "รอบที่": ["Wave", "波次"], "การยิง": ["Firing", "射击"]};
 const EN={inf:{hp:30,s:40,rw:8,dm:1},tk:{hp:170,s:28,rw:25,dm:3},pl:{hp:70,s:85,rw:20,dm:2,air:1},bs:{hp:1,s:17,rw:150,dm:10},gr:{hp:45,s:38,rw:12,dm:1},bm:{hp:140,s:55,rw:35,dm:3,air:1},tr:{hp:220,s:32,rw:30,dm:2},cr:{hp:110,s:70,rw:40,dm:0,air:1},zb:{hp:35,s:42,rw:5,dm:1},zf:{hp:22,s:80,rw:5,dm:1},zg:{hp:420,s:24,rw:30,dm:3}};
 function st(s){const T=TT[s.t],L=s.lv,o=Object.assign({},T);delete o.V;
  if(s.t=='bz'){o.hp=50;o.d=8;o.r=85;o.f=.45;o.cap=L>=2?3:1;o.gp=4;o.sp=30;o.vk=0;
@@ -165,7 +166,7 @@ function build(t,v){const s=sel,c=TT[t].c;if(!s||s.t||S.money<c)return;S.money-=
  Object.assign(s,{t,lv:1,v:(t=='aa'||t=='br')?-1:(v||0),w:0,sol:[],rd:null,rc:0,inv:c,am:undefined,ht:0,rt:0,lk:0,sn:0,off:0,ty:'APCR',cd:0,rb:0,rbk:0,gm:0});menu()}
 function upg(){const s=sel;if(!s||!s.t)return;const c=Math.round(TT[s.t].c*.8);
  if(!(s.lv==1||(s.lv==2&&s.t=='bz'))||S.money<c)return;S.money-=c;s.inv+=c;s.lv++;if(s.t=='bz'&&s.lv==3){s.sol=[];s.rc=0}menu()}
-function cls(i){const s=sel;if(!s||!s.t||s.lv!=2)return;const v=(TT[s.t].W||TT[s.t].V)[i];if(!v||!(v.c>0)||S.money<v.c)return;S.money-=v.c;s.inv+=v.c;s.lv=3;if(TT[s.t].W)s.w=i;else s.v=i;s.am=undefined;menu()}
+function cls(i){const s=sel;if(!s||!s.t||s.lv!=2)return;const arr=TT[s.t].W||TT[s.t].V;if(!arr)return;const v=arr[i];if(!v||!(v.c>0)||S.money<v.c)return;S.money-=v.c;s.inv+=v.c;s.lv=3;if(TT[s.t].W)s.w=i;else s.v=i;s.am=undefined;menu()}
 function gun(i){const s=sel;if(!s||(s.t!='aa'&&s.t!='br')||s.v>=0)return;s.v=i;s.am=undefined;menu()}
 function is88(s){return(s.t=='at'&&s.v==2)||(s.t=='aa'&&s.w==2)}
 function advK(s){const L=s.lv;if(L==3)return 110;if(L==4)return s.t=='mg'?160:(s.t=='mo'||s.t=='bz'||s.t=='at'?150:(is88(s)?150:0));if(L==5&&s.t=='mo')return 600;return 0}
@@ -371,7 +372,7 @@ function update(dt){
   if(f.k=='wr'){f.rot+=dt*5;if(Math.random()<.7)fx({k:'sm',x:f.x,y:f.y,vx:0,vy:0,r0:4,dr:10,l:.8,m:.8,c:'50,50,50'})}
   if(f.l<=0&&f.end){const q=f.end;f.end=null;q(f)}}
  S.fx=S.fx.filter(f=>f.l>0);for(const s of S.tw)if(s.rcl>0)s.rcl=Math.max(0,s.rcl-dt*7);S.shk=Math.max(0,(S.shk||0)-dt*30);S.nt=Math.max(0,(S.nt||0)-dt);
- if(S.life<=0){S.life=0;S.over='แพ้ — ฐานถูกยึด (รอบ '+S.wave+')';menu()}
+ if(S.life<=0){S.life=0;S.over='แพ้ — ฐานถูกยึด (รอบที่ '+S.wave+')';menu()}
  else if(S.act&&!S.q.length&&!S.en.length){S.act=false;S.money+=30+10*S.wave;
   if(!S.end&&S.wave>=10){const g2=winPts();S.over='ชนะ — ป้องกันฐานได้ครบ 10 รอบ (ได้ '+g2+' แต้ม)';menu()}else if(S.end&&S.wave%5==0)givePts(1,'ผ่านรอบ '+S.wave)}
 }
@@ -445,13 +446,13 @@ function draw(){
   else if(f.r){g.beginPath();g.arc(f.x,f.y,f.rad*(1.2-a*.4),0,7);g.fillStyle=f.red?`rgba(200,60,40,${a*.35})`:`rgba(255,170,60,${a*.4})`;g.fill()}
   else{g.beginPath();g.moveTo(f.x1,f.y1);g.lineTo(f.x2,f.y2);g.strokeStyle='rgba(255,200,80,.35)';g.lineWidth=(f.w||2)+3;g.stroke();g.strokeStyle='#fff3c0';g.lineWidth=f.w||2;g.stroke()}}
  g.restore();
- if(S.nt>0){g.fillStyle='rgba(0,0,0,.55)';g.fillRect(230,38,340,30);g.fillStyle='#ffd24a';g.font='600 16px Kanit,sans-serif';g.textAlign='center';g.fillText(S.note,400,59)}
- if(S.over){g.fillStyle='rgba(0,0,0,.6)';g.fillRect(0,0,800,450);g.fillStyle='#fff';g.font='600 30px Kanit,sans-serif';g.textAlign='center';g.fillText(S.over,400,230)}
+ if(S.nt>0){g.fillStyle='rgba(0,0,0,.55)';g.fillRect(230,38,340,30);g.fillStyle='#ffd24a';g.font='600 16px Kanit,sans-serif';g.textAlign='center';g.fillText(tr(S.note),400,59)}
+ if(S.over){g.fillStyle='rgba(0,0,0,.6)';g.fillRect(0,0,800,450);g.fillStyle='#fff';g.font='600 30px Kanit,sans-serif';g.textAlign='center';g.fillText(tr(S.over),400,230)}
 }
-function ui(){$('li').textContent='ชีวิต '+S.life;$('mo').textContent='เงิน '+S.money;$('wv').textContent='รอบ '+Math.max(1,S.wave)+(S.end?'':'/10');
+function ui(){$('li').textContent='ชีวิต '+S.life;$('mo').textContent='เงิน '+S.money;$('wv').textContent='รอบที่ '+Math.max(1,S.wave)+(S.end?'':'/10');
  $('go').textContent=S.act?'กำลังสู้รบ…':'เริ่มรอบ '+(S.wave+1);$('go').disabled=S.act||!!S.over||(!S.end&&S.wave>=10);
  $('as').textContent=S.cd>0?'โจมตีทางอากาศ '+Math.ceil(S.cd)+' วิ':(armed?'แตะบนแผนที่':'โจมตีทางอากาศ');
- $('as').disabled=S.cd>0||!!S.over;$('as').className=armed?'on':'';$('sp').textContent='เร่ง ×'+speed;heroUi()}
+ $('as').disabled=S.cd>0||!!S.over;$('as').className=armed?'on':'';$('sp').textContent='เร่ง ×'+speed;heroUi();trUI()}
 function ico(v,t){const b=v.b||(t=='aa'?2:1),len=t=='mo'?16:(t=='aa'?24:28),th=t=='mo'?9:(t=='at'?6:(v.ap>=.7?5:3));
  let s=`<svg width="46" height="40" viewBox="0 0 46 40"><circle cx="14" cy="20" r="11" fill="${v.col||'#666'}" stroke="#1a1a10" stroke-width="2"/>`;
  for(let i=0;i<b;i++){const o=(i-(b-1)/2)*6;s+=`<rect x="14" y="${20+o-th/2}" width="${len}" height="${th}" fill="#222"/>`}return s+'</svg>'}
@@ -466,7 +467,7 @@ function menu(){const m=$('menu');let h='';
   h=`<span style="flex-basis:100%">${T.n} ระดับ ${L} · ${sm(T)}</span>`;
   if(T.mag)h+=`<button onclick="rel()" ${s.rt>0||s.am>=T.mag?'disabled':''}>โหลดกระสุน ${s.am===undefined?T.mag:s.am}/${T.mag}</button>`;
   if(s.t=='br'||s.t=='bz')h+=`<button onclick="heal()" ${S.money<100||!s.sol.length?'disabled':''}>ฮีลทหาร 100</button>`;
-  if(s.t=='mo')h+=`<button class="${s.off?'':'on'}" onclick="tog()">ยิง: ${s.off?'ปิด':'เปิด'}</button>`;
+  if(s.t=='mo')h+=`<button class="${s.off?'':'on'}" onclick="tog()">การยิง: ${s.off?'ปิด':'เปิด'}</button>`;
   if(s.t=='at'){for(const a of AM)h+=`<button class="${s.ty==a?'on':''}" onclick="setT('${a}')">${a}</button>`;h+='<span style="flex-basis:100%;font-size:12px">HE→ทหาร · APCR→รถถัง · APHE→บอส · HEAT→เกราะทุกชนิด</span>'}
   if(L==1||(L==2&&s.t=='bz'))h+=`<button onclick="upg()" ${S.money<c?'disabled':''}>อัปเกรด ${c}</button>`;
   else if(L==2)(TT[s.t].W||TT[s.t].V).forEach((v,i)=>h+=bb(`cls(${i})`,v,s.t,v.c,S.money<v.c));
@@ -475,7 +476,7 @@ function menu(){const m=$('menu');let h='';
   else if(advK(s)){const k=advK(s),lab=L==3?'★ ดาวแดง: พลบรรจุ':(s.t=='bz'?'เสริมเกราะจีป (ระดับ 5)':s.t=='mg'?'ติดปืนคู่ (ระดับ 5)':(s.t=='mo'?(L==5?'ปืนรถไฟ 700 มม. (ระดับ 6)':'ลำกล้องยาว (ระดับ 5)'):'กล้องเล็งพิเศษ (ระดับ 5)')),one=L==5&&s.t=='mo'&&S.tw.some(o=>o!=s&&o.t=='mo'&&o.lv>=6);h+=`<button onclick="adv()" ${S.money<k||one?'disabled':''}>${lab} ${k}</button>`+(one?'<span>มีปืนรถไฟได้แค่ป้อมเดียว</span>':'')}
   h+=rbBtns(s);
   h+=`<button onclick="sell()">ขาย ${Math.round(s.inv*.6)}</button>`}
- m.innerHTML=h}
+ m.innerHTML=tr(h)}
 cv.addEventListener('pointerdown',ev=>{if(S.over)return;const r=cv.getBoundingClientRect(),x=(ev.clientX-r.left)*800/r.width,y=(ev.clientY-r.top)*450/r.height;
  if(armedH){armedH=false;const H=S.hero;if(H&&!H.dead){let bd=1e9,bdd=0;for(let d=0;d<=TL;d+=5){const q=at(d),dd=Math.hypot(q[0]-x,q[1]-y);if(dd<bd){bd=dd;bdd=d}}H.dd=bdd;const q=at(bdd);fx({r:1,x:q[0],y:q[1],rad:24,l:.4,m:.4})}ui();return}
  if(armed){strike(x,y);return}
@@ -499,22 +500,23 @@ function demoStep(dt){if(!DM)makeDemo();const sv=[P,SL,TL,S,sel,armed];
 function loop(t){const dt=Math.min(.05,(t-last)/1000);last=t;FT+=dt;
  if(inMenu)demoStep(dt);else{for(let i=0;i<speed;i++)update(dt);draw();ui();mt+=dt;if(mt>.4){mt=0;if(!S.over)menu()}}
  requestAnimationFrame(loop)}
-let inMenu=true,AC=null,mute=false,started=0,DM=null,quiet=false;
+let inMenu=true,AC=null,mute=false,started=0,DM=null,quiet=false,MG=null,vol=.8,LANG='th',TRX=null;
 const SND={mg:{l:.07,f:3500,v:.12},m2:{l:.12,f:1800,v:.2,o:150},mg42:{l:.05,f:4500,v:.1,p:4},dshk:{l:.13,f:1500,v:.2,o:130},a40:{l:.14,f:1600,v:.22,o:110},a37:{l:.06,f:3000,v:.12,o:180},a88:{l:.35,f:900,v:.35,o:70,p:2},at:{l:.2,f:1200,v:.25,o:120},at75:{l:.25,f:1000,v:.3,o:100},at50:{l:.15,f:1800,v:.22,o:140},at88:{l:.4,f:800,v:.4,o:60,p:2},mo:{l:.25,f:700,v:.25,o:90},mo150:{l:.35,f:600,v:.32,o:70},mo380:{l:.9,f:400,v:.6,o:40,p:1.5},gar:{l:.06,f:3000,v:.1},kar:{l:.1,f:2200,v:.16,o:140},mos:{l:.12,f:2000,v:.18,o:120},bar:{l:.1,f:2400,v:.16,o:130},stg:{l:.05,f:3400,v:.1},ppsh:{l:.035,f:3800,v:.08},mo700:{l:1.4,f:300,v:.8,o:30,p:1.2}},lastS={};
 function sk(s){if(s.t=='br'&&s.rb)return s.rbk?'mg':'at50';if(s.t=='bz')return s.lv>=6?['at75','at88','at50'][s.w||0]:s.lv>=3?'m2':'gar';if(s.t=='br')return s.lv>=3?['bar','stg','ppsh'][s.w]:['gar','kar','mos'][s.v];if(s.t=='mg')return s.lv<3?'mg':['m2','mg42','dshk'][s.v];if(s.t=='aa'&&s.rb>=2)return'a37';if(s.t=='aa')return s.lv>=3?['a40','a37','a88'][s.w]:['m2','mg42','dshk'][s.v];if(s.t=='at')return s.lv>=6?['at88','mo150','mo380'][s.f6||0]:s.lv<3?'at':['at75','at50','at88','at75'][s.v];return s.lv>=6?'mo700':s.lv<3?'mo':['mo150','mo380'][s.v]}
 function snd(k){if(mute||quiet||!AC||!SND[k])return;const q=SND[k],t=AC.currentTime;if(lastS[k]>t-.05)return;lastS[k]=t;
  const n=Math.floor(AC.sampleRate*q.l),b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);
  for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,q.p||3);
  const s=AC.createBufferSource();s.buffer=b;const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=q.f;
- const gn=AC.createGain();gn.gain.value=q.v;s.connect(f);f.connect(gn);gn.connect(AC.destination);s.start(t);
- if(q.o){const o=AC.createOscillator(),og=AC.createGain();o.frequency.setValueAtTime(q.o,t);o.frequency.exponentialRampToValueAtTime(30,t+q.l);og.gain.setValueAtTime(q.v*.8,t);og.gain.exponentialRampToValueAtTime(.001,t+q.l);o.connect(og);og.connect(AC.destination);o.start(t);o.stop(t+q.l)}}
-function initAudio(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state=='suspended')AC.resume()}
+ const gn=AC.createGain();gn.gain.value=q.v;s.connect(f);f.connect(gn);gn.connect(MG||AC.destination);s.start(t);
+ if(q.o){const o=AC.createOscillator(),og=AC.createGain();o.frequency.setValueAtTime(q.o,t);o.frequency.exponentialRampToValueAtTime(30,t+q.l);og.gain.setValueAtTime(q.v*.8,t);og.gain.exponentialRampToValueAtTime(.001,t+q.l);o.connect(og);og.connect(MG||AC.destination);o.start(t);o.stop(t+q.l)}}
+function initAudio(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}if(AC){MG=AC.createGain();MG.gain.value=vol;MG.connect(AC.destination)}}if(AC&&AC.state=='suspended')AC.resume()}
 function showTitle(){inMenu=true;back();renderPts();$('rs').style.display=started&&!S.over?'':'none';$('title').style.display='flex'}
 function hideTitle(){inMenu=false;$('title').style.display='none'}
 $('nw').onclick=()=>{$('scr1').style.display='none';$('scr2').style.display='block';renderOpt()};
 $('rs').onclick=()=>{initAudio();hideTitle()};
 $('hp').onclick=()=>{const h=$('help');h.style.display=h.style.display=='none'?'block':'none'};
-$('sd').onclick=()=>{mute=!mute;$('sd').textContent='เสียง: '+(mute?'ปิด':'เปิด')};
+$('sd').onclick=()=>{mute=!mute;sdLabel()};
+$('vd').onclick=()=>setVol(vol-.1);$('vu').onclick=()=>setVol(vol+.1);$('bvd').onclick=()=>setVol(vol-.1);$('bvu').onclick=()=>setVol(vol+.1);
 $('mn').onclick=showTitle;
 let thSel=0;
 function thumb(i){const m=MAPS[i],T=TH[m.t],L=LAY[m.li];return `<button class="o" onclick="pick(${i})"><svg width="80" height="45" viewBox="0 0 800 450" style="background:${T.g};border-radius:3px"><polyline points="${L.map(p=>(m.fx?800-p[0]:p[0])+','+(m.fy?450-p[1]:p[1])).join(' ')}" fill="none" stroke="${T.p}" stroke-width="60" stroke-linejoin="round"/></svg><small>${m.n}</small></button>`}
@@ -528,12 +530,14 @@ function renderOpt(){let h='<div class="rw"><b>ความยาก</b></div>';
  h+='<div class="rw"><b>แผนที่</b></div><button class="big" onclick="pick(-1)">สุ่มแผนที่ · เริ่มเลย</button><div class="rw">หรือเลือกแผนที่ (แตะเพื่อเริ่ม)</div>';
  TH.forEach((t,i)=>h+=`<button class="${thSel==i?'on':''}" onclick="thSel=${i};renderOpt()">${t.n}</button>`);
  h+='<div class="rw"></div>';for(let k=0;k<5;k++)h+=thumb(thSel*5+k);
- h+='<div class="rw"><button onclick="back()">← กลับ</button></div>';$('opt').innerHTML=h}
+ h+='<div class="rw"><button onclick="back()">← กลับ</button></div>';$('opt').innerHTML=tr(h)}
 function pick(i){initAudio();mapSel=i;reset();started=1;hideTitle()}
 function back(){$('scr1').style.display='';$('scr2').style.display='none';$('scr3').style.display='none'}
 document.addEventListener('click',()=>{const a=document.activeElement;if(a&&a.blur)a.blur()});
 addEventListener('keydown',e=>{const k=e.key;
  if(k=='Escape'){if(inMenu){if(started&&!S.over)hideTitle()}else showTitle();return}
+ if(k=='-'||k=='_'){setVol(vol-.1);return}
+ if(k=='='||k=='+'){setVol(vol+.1);return}
  if(inMenu)return;
  if(k==' '||k=='Enter'){e.preventDefault();startWave()}
  else if(k=='f'||k=='F'){speed=speed==1?2:speed==2?4:1;ui()}
@@ -550,13 +554,24 @@ function loadG(){try{const d=JSON.parse(localStorage.getItem('ww2td')||'{}');pts
 function saveG(){try{localStorage.setItem('ww2td',JSON.stringify({pts,own}))}catch(e){}}
 function givePts(n,why){pts+=n;saveG();S.note='+'+n+' แต้ม ('+why+')';S.nt=3.5}
 function winPts(){const d=S.df==null?1:S.df,n=d==0?1+(Math.random()*2|0):d==1?3+(Math.random()*2|0):5+(Math.random()*6|0);pts+=n;saveG();return n}
-function renderPts(){$('ptsb').textContent='แต้มสะสม: '+pts}
+function renderPts(){$('ptsb').textContent=tr('แต้มสะสม: '+pts)}
 function buy(id){const it=ITEMS.find(x=>x.id==id);if(!it||own[id]||pts<it.c)return;pts-=it.c;own[id]=1;saveG();renderShop();renderPts()}
 function renderShop(){let h='<div class="rw"><b>ร้านค้า</b> · แต้มของคุณ: '+pts+'</div><div class="rw"><small>แลกแล้วจะปลดล็อกถาวร ใช้อัปเกรดดาวรุ้งในเกมโดยจ่ายเงินในเกมเพิ่ม</small></div>';
  for(const it of ITEMS)h+=`<div class="itm"><b>${it.n}</b><br><small>${it.d}</small><br>${own[it.id]?'<span>✓ แลกแล้ว</span>':`<button onclick="buy('${it.id}')" ${pts<it.c?'disabled':''}>แลก ${it.c} แต้ม</button>`}</div>`;
- h+='<div class="rw"><button onclick="back()">← กลับ</button></div>';$('shop').innerHTML=h}
+ h+='<div class="rw"><button onclick="back()">← กลับ</button></div>';$('shop').innerHTML=tr(h)}
 $('shp').onclick=()=>{$('scr1').style.display='none';$('scr3').style.display='block';renderShop()};
 $('hm').onclick=()=>{if(S.hero&&!S.hero.dead){armedH=!armedH;ui()}};
 $('hr').onclick=heroRefill;
-loadG();renderPts();renderOpt();reset();requestAnimationFrame(loop);
+function mkTR(){const ks=Object.keys(TRD).sort((a,b)=>b.length-a.length);TRX=new RegExp(ks.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'g')}
+function tr(s){if(LANG=='th'||typeof s!='string')return s;if(!TRX)mkTR();const i=LANG=='en'?0:1;return s.replace(TRX,m=>TRD[m][i])}
+function trUI(){if(LANG=='th')return;for(const id of ['li','mo','wv','go','as','sp','hm','hr']){const e=$(id);e.textContent=tr(e.textContent)}}
+const ORIG=new Map(),SKIP={ptsb:1,sd:1,go:1,as:1,sp:1,hm:1,hr:1};
+function trStatic(){try{const roots=[$('scr1'),$('bar'),document.querySelector('main>p')];for(const r of roots){if(!r)continue;const w=document.createTreeWalker(r,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const pid=n.parentNode&&n.parentNode.id;if(SKIP[pid])continue;if(!ORIG.has(n))ORIG.set(n,n.nodeValue);n.nodeValue=tr(ORIG.get(n))}}}catch(e){}renderPts();sdLabel()}
+function loadS(){try{const d=JSON.parse(localStorage.getItem('ww2td_set')||'null');if(d){if(d.lang)LANG=d.lang;if(d.vol!=null)vol=+d.vol}else{const n=(navigator.language||'').toLowerCase();LANG=n.startsWith('th')?'th':n.startsWith('zh')?'zh':'en'}}catch(e){}}
+function saveS(){try{localStorage.setItem('ww2td_set',JSON.stringify({lang:LANG,vol}))}catch(e){}}
+function sdLabel(){const b=$('sd');if(b)b.textContent=tr('เสียง: '+(mute?'ปิด':'เปิด')+' '+Math.round(vol*100)+'%')}
+function setVol(v){vol=Math.max(0,Math.min(1,Math.round(v*10)/10));if(MG)MG.gain.value=vol;saveS();sdLabel();if(S&&!inMenu){S.note='เสียง '+Math.round(vol*100)+'%';S.nt=1.2}}
+function setLang(l){LANG=l;saveS();try{document.documentElement.lang=l;for(const b of document.querySelectorAll('#lang button'))b.className=b.dataset.l==LANG?'on':''}catch(e){}trStatic();renderOpt();renderShop();if(S){ui();menu()}}
+function initI18n(){try{for(const b of document.querySelectorAll('#lang button'))b.onclick=()=>setLang(b.dataset.l)}catch(e){}setLang(LANG)}
+loadG();loadS();renderOpt();reset();initI18n();requestAnimationFrame(loop);
 </script></body></html>
